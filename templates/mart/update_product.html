@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% block title %} {% if product %}Update Product{% else %}New Product{% endif %} {% endblock %}
+{% block content %}
+
+<div class="page-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+
+  
+       <div class="card">
+                <form class="form-horizontal" method="POST" {% if product %} action="{% url 'mart:update_product' product_id=product.id %}" 
+                {% else %} action="{% url 'mart:add_product'  %}" {% endif %}
+                >
+                  {% csrf_token %}
+                  <div class="card-body">
+                    <h4 class="card-title">Product Info</h4>
+                    <div class="form-group row">
+                      <label
+                        for="title"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Title</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="title"
+                          placeholder="Product Title Here"
+                          name='title'
+                          {% if product %} value='{{product.title}}' {% endif %}
+                        />
+                      </div>
+                    </div>
+                  
+                    <div class="form-group row">  
+                    <label for='role' class="col-sm-3 text-end control-label col-form-label" >Category</label>    
+                    <div class="col-sm-9">
+                      <select
+                        class="select2 form-select shadow-none"
+                        style="width: 100%; height: 36px"
+                        aria-label="Category"
+                        name="category"
+                    
+                      >
+                        {% for cat in category %}
+                        <option value="{{cat.id}}" {% if cat == prod_cat %} selected {% endif %} >{{cat}}</option>
+                        {% endfor %}
+                      </select>
+                      </div>
+                    </div>
+
+
+                   <div class="form-group row">  
+                    <label for='role' class="col-sm-3 text-end control-label col-form-label" >Brand</label>    
+                    <div class="col-sm-9">
+                      <select
+                        class="select2 form-select shadow-none"
+                        style="width: 100%; height: 36px"
+                        aria-label="Brand"
+                        name="brand"
+                    
+                      >
+                        {% for brand in brand %}
+                          <option value="{{brand.id}}" {% if brand == prod_brand %} selected {% endif %}>{{brand}}</option>
+                        {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label
+                        for="price"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Price</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name='price'
+                          id="price"
+                          placeholder="Product Price Here"
+                          {% if product %} value='{{product.price}}' {% endif %}
+                        />
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label
+                        for="quantity"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Quantity</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name='quantity'
+                          id="quantity"
+                          placeholder="Product Quantity Here"
+                          {% if product %} value='{{product.quantity}}' {% endif %}
+                        />
+                      </div>
+                    </div>
+                  
+                   
+                  </div>
+                  <div class="border-top">
+                    <div class="card-body">
+                      <button type="submit" class="btn btn-primary">
+                        {% if product %} Update {% else %} Add {% endif %} product
+                      </button>
+                    </div>
+                  </div>
+                </form>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

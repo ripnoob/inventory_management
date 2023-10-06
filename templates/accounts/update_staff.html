@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% block title %} New Staff {% endblock %}
+{% block content %}
+
+<div class="page-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+
+  
+       <div class="card">
+                <form class="form-horizontal" method="POST" action="{% url 'accounts:update_staff' staff_id=staff.id %}">
+                  {% csrf_token %}
+                  <div class="card-body">
+                    <h4 class="card-title">Staff Info</h4>
+                    <div class="form-group row">
+                      <label
+                        for="username"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Username</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="username"
+                          placeholder="Username Here"
+                          name='username'
+                          value='{{ staff.username }}'
+                        />
+                      </div>
+                    </div>
+                     
+                     <div class="form-group row">
+                      <label
+                        for="first_name"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >First Name</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="first_name"
+                          placeholder="First Name Here"
+                          name='first_name'
+                          {% if staff.first_name %}
+                          value='{{staff.first_name}}'
+                          {% endif %}
+                        />
+                      </div>
+                    </div>
+                    
+                     <div class="form-group row">
+                      <label
+                        for="last_name"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Last Name</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="last_name"
+                          placeholder="Last Name Here"
+                          name='last_name'
+                          {% if staff.last_name %}
+                          value='{{staff.last_name}}'
+                          {% endif %}
+                        />
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label
+                        for="email"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Email</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="email"
+                          placeholder="Email Here"
+                          name='email'
+                          value='{{staff.email}}'
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label
+                        for="phone_number"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Phone</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="phone_number"
+                          name='phone_number'
+                          placeholder="Phone Number Here"
+                          {% if staff.phone_number %}
+                          value='{{staff.phone_number}}'
+                          {% endif %}
+                        />
+                      </div>
+                    </div>
+
+                    <div class="form-group row">  
+                      <label for='role' class="col-sm-3 text-end control-label col-form-label" >Role</label>    
+                      <div class="col-sm-9">
+                        <select
+                          class="select2 form-select shadow-none"
+                          style="width: 100%; height: 36px"
+                          aria-label="Role"
+                          name="role"
+                      
+                        >
+                          <option value="staff">Staff</option>
+                          <option value="staff">Admin</option>
+                        </select>
+                      </div>
+                    </div>
+                  
+                   
+                  </div>
+                  <div class="border-top">
+                    <div class="card-body">
+                      <button type="submit" class="btn btn-primary">
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

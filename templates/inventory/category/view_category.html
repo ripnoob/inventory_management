@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %} All Category {% endblock %}
+{% block content %}
+
+<div class="page-wrapper">
+<div class="container-fluid">
+ <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"> Categories </h5>
+      <div class="table-responsive">
+        <table
+          id="zero_config"
+          class="table table-striped table-bordered"
+        >
+          <thead>
+            <tr>
+              <th class="md col-7">Weight</th>
+              <th class="md col-2">Date</th>
+              <th>Update</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+    		{% for category in categories %}
+            <tr>
+              <td>{{category.weight}}</td>
+              <td>{{category.created_at}}</td>
+              <td><a href="{% url 'inventory:update_category' category.id %}" class="btn btn-outline-info"><i class="mdi mdi-pencil-box" style="font-size: large;"></i></a></td>
+              <td>
+              <!-- Form for the Delete button -->
+              <form id="delete-form-{{ category.id }}" method="post" action="{% url 'inventory:delete_category' category.id %}">
+                {% csrf_token %}
+                <button type="button" onclick="showDeleteConfirmation({{ category.id }})" class="btn btn-outline-info">
+                  <i class="mdi mdi-delete" style="font-size: 20px;"></i>
+                </button>
+              </form>
+            </td>
+            </tr>
+
+   			{% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+{% endblock %}

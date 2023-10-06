@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %} {% if category %} Update Category {% else %} Add Category {% endif %} {% endblock %}
+{% block content %}
+
+<div class="page-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="card">
+        <form class="form-horizontal" method="POST">
+          {% csrf_token %}
+          <div class="card-body">
+            {% if category %}
+              <h4 class="card-title">Edit Category</h4>
+            {% else %}
+              <h4 class="card-title">Add Category</h4>
+            {% endif %}
+            <div class="form-group row">
+              <label for="name" class="col-sm-3 text-end control-label col-form-label">Cylin Weight / Category</label>
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  placeholder="Cylinder Weight / Category"
+                  name='weight'
+                  value="{% if category %}{{ category.weight }}{% endif %}"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="border-top">
+            <div class="card-body">
+              {% if category %}
+                <button type="submit" class="btn btn-primary">Update</button>
+              {% else %}
+                <button type="submit" class="btn btn-primary">Submit</button>
+              {% endif %}
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

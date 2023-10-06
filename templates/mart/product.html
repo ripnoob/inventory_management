@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %} Product List {% endblock %}
+{% block content %}
+
+<div class="page-wrapper">
+<div class="container-fluid">
+ <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Product Menu </h5>
+      <div class="table-responsive">
+        <table
+          id="zero_config"
+          class="table table-striped table-bordered"
+        >
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Basundhara</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th class="col-md-1">Update</th>
+              <th class="col-md-1">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+        {% for product in products %}
+            <tr>
+              <td>{{product.title}}</td>
+              <td>{{product.category}}</td>
+              <td>{{product.brand}}</td>
+              <td>{{product.price}}</td>
+              <td>{{ product.quantity }}</td>
+              <td><a href="{% url 'mart:update_product' product.id %}" class="btn btn-outline-info"><i class="mdi mdi-pencil-box" style="font-size: 20px;"></i></a></td>
+              <td>
+              <!-- Form for the Delete button -->
+              <form id="delete-form-{{ product.id }}" method="post" action="{% url 'mart:delete_product' product.id %}">
+                {% csrf_token %}
+                <button type="button" onclick="showDeleteConfirmation({{ product.id }})" class="btn btn-outline-info">
+                  <i class="mdi mdi-delete" style="font-size: 20px;"></i>
+                </button>
+              </form>
+            </td>
+            </tr>
+        {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+{% endblock %}

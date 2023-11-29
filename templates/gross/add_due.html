@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block title %} {% if due %}Update Due{% else %}New Due{% endif %} {% endblock %}
+{% block content %}
+
+<div class="page-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+
+  
+       <div class="card">
+                <form class="form-horizontal" method="POST" {% if due %} action="{% url 'gross:update_due' due_id=due.id %}" 
+                {% else %} action="{% url 'gross:add_due'  %}" {% endif %}
+                >
+                  {% csrf_token %}
+                  <div class="card-body">
+                    <h4 class="card-title">Due Record</h4>
+
+                  <div class="form-group row">  
+                    <label for='role' class="col-sm-3 text-end control-label col-form-label" >Sale</label>    
+                    <div class="col-sm-9">
+                      <select
+                        class="select2 form-select shadow-none"
+                        style="width: 100%; height: 36px"
+                        aria-label="sale"
+                        name="sale"
+                    
+                      >
+                        {% for sale in sales %}
+                        <option value="{{sale.id}}" {% if sale == sale %} selected {% endif %} >{{sale}}</option>
+                        {% endfor %}
+                      </select>
+                      </div>
+                    </div>
+
+
+                
+                    <div class="form-group row">
+                      <label
+                        for="price"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Due Amount</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name='due_amount'
+                          id="due_amount"
+                          placeholder="Due Amount"
+                          {% if due %} value='{{due.due_amount}}' {% endif %}
+                        />
+                      </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                    <label for="refill" class="col-sm-3 text-end control-label col-form-label">Is Paid</label>
+                    <div class="col-sm-9" style="margin-top: 6px;">
+
+                      <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="is_paid_yes" name="is_paid" value="True" required>
+                        <label class="form-check-label mb-0" for="is_paid">Yes</label>
+                      </div>
+
+                      <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="is_paid" name="is_paid" value="False" required>
+                        <label class="form-check-label mb-0" for="is_paid_no">No</label>
+                      </div>
+
+                    </div>
+                  </div>
+
+
+
+
+
+                  <div class="border-top">
+                    <div class="card-body">
+                      <button type="submit" class="btn btn-primary">
+                        {% if due %} Update {% else %} Add {% endif %} Record
+                      </button>
+                    </div>
+                  </div>
+                </form>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

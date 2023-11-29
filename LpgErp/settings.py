@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'Inventory.apps.InventoryConfig',
     'accounts.apps.AccountsConfig',
     'mart.apps.MartConfig',
+    'gross.apps.GrossConfig',
 ]
 
 MIDDLEWARE = [

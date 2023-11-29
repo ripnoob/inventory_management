@@ -87,7 +87,6 @@ def update_staff(request, staff_id):
 			for field, errors in form.errors.items():
 		 		for error in errors:
 		 			messages.error(request, error)
-	print()
 
 	return render(request, 'accounts/update_staff.html', {'form':form, 'staff':staff})
 
@@ -115,7 +114,6 @@ def update_admin(request, admin_id):
 			return redirect('accounts:admin')
 		else:
 			form = AdminForm(instance=admin)
-	print()
 
 	return render(request, 'accounts/update_admin.html', {'form':form, 'admin':admin})
 

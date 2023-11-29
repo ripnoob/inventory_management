@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %} View Due {% endblock %}
+{% block content %}
+
+<div class="page-wrapper">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Records</h5>
+                <div class="table-responsive">
+                    <table id="zero_config" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Due Amount</th>
+                                <th>Product Title</th>
+                                <th>Customer Name</th>
+                                <th>Customer Phone</th>
+                                <th>Total Cost</th>
+                                <th>Total Paid</th>
+                                <th>Date</th>
+                                <th class="col-md-1">Update Status</th>
+                                <th class="col-md-1">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for due in due_records %}
+                            <tr>
+                                <td
+                                    {% if due.is_paid %}
+                                    style="color: green;"
+                                    {% else %}
+                                    style="color: red;"
+                                    {% endif %}
+                                >
+                                    {% if due.is_paid %} Paid {% else %} Unpaid {% endif %}
+                                </td>
+                                <td>{{ due.due_amount }}</td>
+                                <td>{{ due.sale.product }}</td>
+                                <td>{{ due.sale.customer.get_full_name }}</td>
+                                <td>{{ due.sale.customer.phone }}</td>
+                                <td>{{ due.sale.total_cost }}</td>
+                                <td>{{ due.sale.paid }}</td>
+                                <td>{{ due.created_at|date:"M. j, Y" }}</td>
+                                <td>
+                                   <form method="post" action="{% url 'gross:update_due' due.id %}">
+                                        {% csrf_token %}
+                                        <div class="d-flex align-items-center">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="is_paid_{{ due.id }}" name="is_paid" {% if due.is_paid %}checked{% endif %}>
+                                                <label class="form-check-label" for="is_paid_{{ due.id }}">Paid</label>
+                                            </div>
+                                            <button type="submit" class="btn btn-outline-info btn-sm ml-2" style="margin: 10px; margin-bottom: 19px;">Update</button>
+                                        </div>
+                                    </form>
+                                </td>
+                                <td>
+                                    <!-- Form for the Delete button -->
+                                    <form id="delete-form-{{ due.id }}" method="post" action="{% url 'gross:delete_due' due.id %}">
+                                        {% csrf_token %}
+                                        <button type="button" onclick="showDeleteConfirmation({{ due.id }})" class="btn btn-outline-info">
+                                            <i class="mdi mdi-delete" style="font-size: 20px;"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

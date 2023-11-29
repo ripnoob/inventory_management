@@ -16,7 +16,8 @@
             <tr>
               <th>Title</th>
               <th>Category</th>
-              <th>Basundhara</th>
+              <th>Refill / Warrenty </th>
+              <th>Brand</th>
               <th>Price</th>
               <th>Quantity</th>
               <th class="col-md-1">Update</th>
@@ -28,6 +29,7 @@
             <tr>
               <td>{{product.title}}</td>
               <td>{{product.category}}</td>
+              <td>{% if product.is_refill %} Yes {% else %} No {% endif %}</td>
               <td>{{product.brand}}</td>
               <td>{{product.price}}</td>
               <td>{{ product.quantity }}</td>

@@ -98,13 +98,13 @@
                 >
                 <ul aria-expanded="false" class="collapse first-level">
                   <li class="sidebar-item">
-                    <a href="form-basic.html" class="sidebar-link"
+                    <a href="{% url 'inventory:add_supplier' %}" class="sidebar-link"
                       ><i class="mdi mdi-note-plus"></i
                       ><span class="hide-menu"> Add Supplier </span></a
                     >
                   </li>
                   <li class="sidebar-item">
-                    <a href="form-basic.html" class="sidebar-link"
+                    <a href="{% url 'inventory:view_supplier' %}" class="sidebar-link"
                       ><i class="mdi mdi-view-list"></i
                       ><span class="hide-menu"> View / Manage </span></a
                     >
@@ -118,7 +118,7 @@
                   <li class="sidebar-item">
                     <a href="form-wizard.html" class="sidebar-link"
                       ><i class="mdi mdi-view-list"></i
-                      ><span class="hide-menu"> View / Manage Company Payment </span></a
+                      ><span class="hide-menu"> View / Manage Payment </span></a
                     >
                   </li>
                 </ul>
@@ -185,28 +185,44 @@
                   ><span class="hide-menu">Purchase</span></a
                 >
                 <ul aria-expanded="false" class="collapse first-level">
+
                   <li class="sidebar-item">
-                    <a href="form-basic.html" class="sidebar-link"
+                    <a href="{% url 'mart:add_purchase' %}" class="sidebar-link"
                       ><i class="mdi mdi-note-plus"></i
-                      ><span class="hide-menu"> LPG Purchase </span></a
+                      ><span class="hide-menu"> Purchases </span></a
+                    >
+                  </li>
+
+
+                  <li class="sidebar-item">
+                    <a href="{% url 'mart:view_purchase' %}" class="sidebar-link"
+                      ><i class="mdi mdi-view-list"></i
+                      ><span class="hide-menu"> Purchase History </span></a
+                    >
+                  </li>
+
+                </ul>
+              </li>
+
+               <li class="sidebar-item">    
+                <a
+                  class="sidebar-link has-arrow waves-effect waves-dark"
+                  href="javascript:void(0)"
+                  aria-expanded="false"
+                  ><i class="mdi mdi-backburger"></i
+                  ><span class="hide-menu">Return</span></a
+                >
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a href="{% url 'mart:add_return' %}" class="sidebar-link"
+                      ><i class="mdi mdi-note-plus"></i
+                      ><span class="hide-menu"> Create return voucher </span></a
                     >
                   </li>
                   <li class="sidebar-item">
-                    <a href="form-wizard.html" class="sidebar-link"
+                    <a href="{% url 'mart:view_return' %}" class="sidebar-link"
                       ><i class="mdi mdi-view-list"></i
-                      ><span class="hide-menu"> Item Wise </span></a
-                    >
-                  </li>
-                  <li class="sidebar-item">
-                    <a href="form-wizard.html" class="sidebar-link"
-                      ><i class="mdi mdi-view-list"></i
-                      ><span class="hide-menu"> Add Return </span></a
-                    >
-                  </li>
-                  <li class="sidebar-item">
-                    <a href="form-wizard.html" class="sidebar-link"
-                      ><i class="mdi mdi-view-list"></i
-                      ><span class="hide-menu"> All Return </span></a
+                      ><span class="hide-menu"> View all </span></a
                     >
                   </li>
 
@@ -223,61 +239,17 @@
                 >
                 <ul aria-expanded="false" class="collapse first-level">
                   <li class="sidebar-item">
-                    <a href="form-basic.html" class="sidebar-link"
+                    <a href="{% url 'gross:add_sale' %}" class="sidebar-link"
                       ><i class="mdi mdi-view-list"></i
-                      ><span class="hide-menu"> LPG Sale Package</span></a
-                    >
-                  </li>
-                  <li class="sidebar-item">
-                    <a href="form-wizard.html" class="sidebar-link"
-                      ><i class="mdi mdi-view-list"></i
-                      ><span class="hide-menu"> LPG Sale Refill</span></a
+                      ><span class="hide-menu"> Add Sale </span></a
                     >
                   </li>
 
-                   <li class="sidebar-item">
-                    <a href="form-wizard.html" class="sidebar-link"
+        
+                  <li class="sidebar-item">
+                    <a href="{% url 'gross:view_sale' %}" class="sidebar-link"
                       ><i class="mdi mdi-view-list"></i
-                      ><span class="hide-menu"> Utility Sale </span></a
-                    >
-                  </li>
-
-                  <li class="sidebar-item">
-                    <a href="form-wizard.html" class="sidebar-link"
-                      ><i class="mdi mdi-view-list"></i
-                      ><span class="hide-menu"> Sale Return </span></a
-                    >
-                  </li>
-
-                </ul>
-              </li>
-
-               <li class="sidebar-item">
-                <a
-                  class="sidebar-link has-arrow waves-effect waves-dark"
-                  href="javascript:void(0)"
-                  aria-expanded="false"
-                  ><i class="mdi mdi-chart-line"></i
-                  ><span class="hide-menu">Cost</span></a
-                >
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a href="form-basic.html" class="sidebar-link"
-                      ><i class="mdi mdi-note-plus"></i
-                      ><span class="hide-menu"> Cost Category </span></a
-                    >
-                  </li>
-                  <li class="sidebar-item">
-                    <a href="form-wizard.html" class="sidebar-link"
-                      ><i class="mdi mdi-note-plus"></i
-                      ><span class="hide-menu"> New Cost </span></a
-                    >
-                  </li>
-
-                  <li class="sidebar-item">
-                    <a href="form-wizard.html" class="sidebar-link"
-                      ><i class="mdi mdi-view-list"></i
-                      ><span class="hide-menu"> All Cost </span></a
+                      ><span class="hide-menu"> Sale Record's </span></a
                     >
                   </li>
 
@@ -294,22 +266,16 @@
                 >
                 <ul aria-expanded="false" class="collapse first-level">
                   <li class="sidebar-item">
-                    <a href="form-basic.html" class="sidebar-link"
+                    <a href="{% url 'gross:add_due' %}" class="sidebar-link"
                       ><i class="mdi mdi-note-plus"></i
-                      ><span class="hide-menu"> Cash Due </span></a
-                    >
-                  </li>
-                  <li class="sidebar-item">
-                    <a href="form-wizard.html" class="sidebar-link"
-                      ><i class="mdi mdi-view-list"></i
-                      ><span class="hide-menu"> Retailer Due </span></a
+                      ><span class="hide-menu"> Create Due </span></a
                     >
                   </li>
 
                   <li class="sidebar-item">
-                    <a href="form-wizard.html" class="sidebar-link"
-                      ><i class="mdi mdi-view-list"></i
-                      ><span class="hide-menu"> Supplier Due </span></a
+                    <a href="{% url 'gross:view_due' %}" class="sidebar-link"
+                      ><i class="{% url 'gross:view_due' %}"></i
+                      ><span class="hide-menu"> Due Record's</span></a
                     >
                   </li>
 

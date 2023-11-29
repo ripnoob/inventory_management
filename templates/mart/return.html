@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block title %} {% if return %}Update Return{% else %}Add Return{% endif %} {% endblock %}
+{% block content %}
+
+<div class="page-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+
+  
+       <div class="card">
+                <form class="form-horizontal" method="POST"  action="{% url 'mart:add_return'  %}"
+                >
+                  {% csrf_token %}
+                  <div class="card-body">
+                    <h4 class="card-title">Return Record</h4>
+                   
+                    <div class="form-group row">  
+                    <label for='role' class="col-sm-3 text-end control-label col-form-label" >Purchase</label>    
+                    <div class="col-sm-9">
+                      <select
+                        class="select2 form-select shadow-none"
+                        style="width: 100%; height: 36px"
+                        aria-label="purchase"
+                        name="purchase"
+                    
+                      >
+                        {% for purchase in purchase %}
+                          <option value="{{purchase.id}}"> {{purchase}} {% if purchase.is_refill %} - Refill {% else %} - Package {% endif %}
+                          </option>
+                        {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label
+                        for="quantity"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Quantity</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name='quantity'
+                          id="quantity"
+                          placeholder="Product Quantity Here"
+                          {% if product %} value='{{product.quantity}}' {% endif %}
+                        />
+                      </div>
+                    </div>
+                
+
+                  
+                    <div class="form-group row">
+                      <label
+                        for="cost"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Return Cost</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name='return_cost'
+                          id="return_cost"
+                          placeholder="Return Cost Here"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="form-group row"> 
+                    <label
+                        for="issue"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Return Issue</label
+                      >
+                    <div class="col-sm-9">
+                    <textarea
+                       class="form-control"
+                       name="issue"
+                       id="issue"
+                       placeholder="Return Issue Here..."
+                       style="height: 200px;"
+                    ></textarea>
+                    </div>
+                    </div>
+
+                  <div class="border-top">
+                    <div class="card-body">
+                      <button type="submit" class="btn btn-primary">
+                        {% if product %} Update {% else %} Add {% endif %} Record
+                      </button>
+                    </div>
+                  </div>
+                </form>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

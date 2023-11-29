@@ -1,0 +1,104 @@
+
+{% extends 'base.html' %}
+{% block title %} Add Supplier {% endblock %}
+{% block content %}
+
+<div class="page-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+       <div class="card">
+
+                 <form class="form-horizontal" method="POST" action="{% url 'inventory:add_supplier' %}">
+                  {% csrf_token %}
+
+                  <div class="card-body">
+                    <h4 class="card-title">Supplier Info</h4>
+    
+                  <div class="form-group row">  
+                    <label for='brand' class="col-sm-3 text-end control-label col-form-label" >Brand</label>    
+                    <div class="col-sm-9">
+                      <select
+                        class="select2 form-select shadow-none"
+                        style="width: 100%; height: 36px"
+                        aria-label="Brand"
+                        name="brand"
+                    
+                      >
+                        {% for brand in brand %}
+                        <option value="{{brand.id}}">{{brand}}</option>
+                        {% endfor %}
+                      </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label
+                        for="contact_name"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Contact Name</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="contact_name"
+                          placeholder="Contact Name Here"
+                          name='contact_name'
+                        />
+                      </div>
+                    </div>
+
+                  
+                    <div class="form-group row">
+                      <label
+                        for="address"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Address</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name='address'
+                          id="address"
+                          placeholder="Company Address Here"
+                        />
+                      </div>
+                    </div>
+
+
+                      <div class="form-group row">
+                      <label
+                        for="phone"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Phone</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="phone"
+                          name='phone'
+                          placeholder="Phone Number Here"
+                        />
+                      </div>
+                    </div>
+                  
+                  <div class="border-top">
+                    <div class="card-body">
+                      <button type="submit" class="btn btn-primary">
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </form>
+
+        </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib import messages
-from .models import Brand, Category
-from .forms import BrandForm, CategoryForm
+from .models import Brand, Category, Supplier
+from .forms import BrandForm, CategoryForm, SupplierForm
 from django.http import JsonResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -53,7 +53,7 @@ def DeleteBrand(request, brand_id):
 
     if request.method == 'POST':
         brand.delete()
-        messages.success(request, 'Brand removed successfully.')
+        messages.warning(request, 'Brand removed successfully.')
 
     return redirect('inventory:all_brand')
 
@@ -99,7 +99,7 @@ def DeleteCategory(request, category_id):
 
     if request.method == 'POST':
         category.delete()
-        messages.success(request, 'Category removed successfully.')
+        messages.warning(request, 'Category removed successfully.')
     return redirect('inventory:view_category')
 
 
@@ -119,3 +119,38 @@ def UpdateCategory(request, category_id):
         form = CategoryForm(instance=category)
 
     return render(request, 'inventory/category/add_category.html', {'form': form, 'category': category})
+
+
+
+
+
+def ViewSupplier(request):
+    suppliers = Supplier.objects.all()
+    context = {'suppliers':suppliers}
+    return render(request, 'inventory/view_supplier.html', context)
+
+
+
+@login_required(login_url='accounts:login')
+@allowed_users(allowed_roles=['admin'])
+def AddSupplier(request):
+    brand = Brand.objects.all()
+    if request.method == 'POST':
+        form = SupplierForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Supplier added successfully.')
+            return redirect('inventory:view_supplier')
+    return render(request, 'inventory/add_supplier.html', {'brand':brand})
+    
+@login_required(login_url='accounts:login')
+@allowed_users(allowed_roles=['admin'])
+def DeleteSupplier(request, supplier_id):
+    supplier = get_object_or_404(Supplier, pk=supplier_id)
+    if request.method == 'POST':
+        supplier.delete()
+        messages.warning(request, 'Supplier has been removed.')
+    return redirect('inventory:view_supplier')    
+
+def UpdateSupplier(request):
+    pass

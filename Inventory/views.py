@@ -6,11 +6,35 @@ from django.http import JsonResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
+from accounts.models import CustomUser
+from mart.models import Product, Return
+from gross.models import Sale, Due
 
 # Create your views here.
 @login_required(login_url='accounts:login')
 def DashBoard(request):
-	return render(request, 'inventory/dashboard.html')
+
+    
+    current_user = request.user
+
+    total_staff = CustomUser.objects.filter(role='staff').count()
+    total_admin = CustomUser.objects.filter(role='admin').count()
+    total_product = Product.objects.all().count()
+    total_return = Return.objects.all().count()
+    total_sale = Sale.objects.all().count()
+    total_due = Due.objects.all().count()
+
+    context = {
+        'user':current_user,
+        'total_due':total_due,
+        'total_sale':total_sale,
+        'total_return':total_return,
+        'total_product':total_product,
+        'total_staff':total_staff,
+        'total_admin':total_admin,
+    }
+
+    return render(request, 'inventory/dashboard.html', context)
 
 @login_required(login_url='accounts:login')
 @allowed_users(allowed_roles=['admin'])

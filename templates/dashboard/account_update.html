@@ -1,0 +1,162 @@
+
+{% extends 'base.html' %}
+{% block title %} Account Setting {% endblock %}
+{% block content %}
+
+<div class="page-wrapper">
+  <div class="container-fluid">
+    <div class="row">
+
+  
+       <div class="card">
+                <form class="form-horizontal" method="POST" action="{% url 'dashboard:update_account' %}">
+                  {% csrf_token %}
+                  <div class="card-body">
+                    <h4 class="card-title">Account Info</h4>
+
+                     <div class="form-group row">
+                      <label
+                        for="username"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Username</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name='username'
+                          id="username"
+                          placeholder="Extra Cost Here"
+                          {% if user %} value='{{user.username}}' {% endif %}
+                          readonly
+                        />
+                      </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                      <label
+                        for="first_name"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >First Name</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name='first_name'
+                          id="first_name"
+                          placeholder="Extra Cost Here"
+                          {% if user %} value='{{user.first_name}}' {% endif %}
+                        />
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label
+                        for="last_name"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Last Name</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name='last_name'
+                          id="last_name"
+                          placeholder="Extra Cost Here"
+                          {% if user %} value='{{user.last_name}}' {% endif %}
+                        />
+                      </div>
+                    </div>
+
+                     <div class="form-group row">
+                      <label
+                        for="email"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Email</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name='email'
+                          id="email"
+                          placeholder="Email Address Here"
+                          {% if user %} value='{{user.email}}' {% endif %}
+                        />
+                      </div>
+                    </div>
+
+
+                     <div class="form-group row">
+                      <label
+                        for="phone_number"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Phone Number</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name='phone_number'
+                          id="phone_number"
+                          placeholder="Phone Number Here"
+                          {% if user %} value='{{user.phone_number}}' {% endif %}
+                        />
+                      </div>
+                    </div>
+
+                     <div class="form-group row">
+                      <label
+                        for="current_password"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >Current Password</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="password"
+                          class="form-control"
+                          name='current_password'
+                          id="current_password"
+                          placeholder="Current Password"
+                        
+                        />
+                      </div>
+                    </div>
+
+                     <div class="form-group row">
+                      <label
+                        for="new_password"
+                        class="col-sm-3 text-end control-label col-form-label"
+                        >New Password</label
+                      >
+                      <div class="col-sm-9">
+                        <input
+                          type="password"
+                          class="form-control"
+                          name='new_password'
+                          id="new_password"
+                          placeholder="New Password"
+                        />
+                      </div>
+                    </div>
+
+                  <div class="border-top">
+                    <div class="card-body">
+                      <button type="submit" class="btn btn-primary">
+                        Update Info
+                      </button>
+                    </div>
+                  </div>
+                </form>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

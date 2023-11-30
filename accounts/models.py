@@ -9,12 +9,11 @@ class CustomUser(AbstractUser):
     ]
 
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
-    phone_number = models.CharField(max_length=15, blank=True, null=True) 
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True) 
     first_name = models.CharField(max_length=30, blank=True, null=True) 
     last_name = models.CharField(max_length=30, blank=True, null=True)  
 
-
-    # Add any additional fields or methods you need here.
 
     def __str__(self):
         return self.username

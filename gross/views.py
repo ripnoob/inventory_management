@@ -117,11 +117,12 @@ def UpdateDue(request, due_id):
 
 
 
-login_required(login_url='accounts:login')
+@login_required(login_url='accounts:login')
+@allowed_users(allowed_roles=['admin'])
 def DeleteDue(request, due_id):
 	due = get_object_or_404(Due, pk=due_id)
 	if request.method == 'POST':
 		due.delete()
-		messages.warning(request, 'Due is marked as paid')
+		messages.warning(request, 'Due record deleted.')
 	return redirect('gross:view_due')
 	

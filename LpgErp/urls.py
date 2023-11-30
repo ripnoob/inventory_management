@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('', include('mart.urls')),
     path('', include('gross.urls')),
+    path('', include('dashboard.urls')),
 ]
 
 if settings.DEBUG:

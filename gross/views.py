@@ -6,7 +6,7 @@ from .forms import SaleForm, DueForm, DueStatusForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
-
+from django.views.decorators.cache import cache_page
 
 # Create your views here.
 login_required(login_url='accounts:login') 
@@ -33,7 +33,7 @@ def AddSale(request):
 					due_amount = total - paid,
 					is_paid = False 
 					)
-				messages.success(request, 'A sale & due record has been added.')
+				messages.success(request, 'A sale and due record has been added.')
 
 
 			return redirect('gross:view_sale')
@@ -45,7 +45,8 @@ def AddSale(request):
 	context = {'products':products, 'customers':customers}
 	return render(request, 'gross/add_sale.html', context)
 
-login_required(login_url='accounts:login')
+@cache_page(60*15)
+@login_required(login_url='accounts:login')
 def ViewSale(request):
 	sale_record = Sale.objects.all()
 	context = {'sale_record':sale_record}
@@ -64,8 +65,8 @@ def DeleteSale(request, sale_id):
 	return redirect('gross:view_sale')
 
 
-
-login_required(login_url='accounts:login')
+@cache_page(60*15)
+@login_required(login_url='accounts:login')
 def ViewDue(request):
 
 	due = Due.objects.all()

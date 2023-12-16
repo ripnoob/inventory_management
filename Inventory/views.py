@@ -9,12 +9,12 @@ from accounts.decorators import allowed_users
 from accounts.models import CustomUser
 from mart.models import Product, Return
 from gross.models import Sale, Due
+from django.views.decorators.cache import cache_page
 
 # Create your views here.
 @login_required(login_url='accounts:login')
 def DashBoard(request):
 
-    
     current_user = request.user
 
     total_staff = CustomUser.objects.filter(role='staff').count()
@@ -81,7 +81,8 @@ def DeleteBrand(request, brand_id):
 
     return redirect('inventory:all_brand')
 
-	
+
+@cache_page(60*15)	
 @login_required(login_url='accounts:login')
 def AllBrand(request):
 	all_brand = Brand.objects.all().order_by('-created_at')
@@ -90,10 +91,11 @@ def AllBrand(request):
 	}
 	return render(request, 'inventory/all_brand.html', context)
 
-
+@cache_page(60*15)
 @login_required(login_url='accounts:login')
 def ViewCategory(request):
     categories = Category.objects.all()
+    print('DB Called')
     context = {'categories':categories}
     return render(request, 'inventory/category/view_category.html', context)
 
@@ -147,7 +149,8 @@ def UpdateCategory(request, category_id):
 
 
 
-
+@cache_page(60*15)
+@login_required(login_url='accounts:login')
 def ViewSupplier(request):
     suppliers = Supplier.objects.all()
     context = {'suppliers':suppliers}

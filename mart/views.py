@@ -6,14 +6,18 @@ from .forms import AddProductForm, AddPurchaseForm, AddReturnVoucher
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from accounts.decorators import allowed_users
+from django.views.decorators.cache import cache_page
+
 # Create your views here.
 
+@cache_page(60*15)
 def product_view(request):
 	product = Product.objects.all().order_by('-created_at')
+	print('DB Called.....')
 	context = {'products':product}
 	return render(request, 'mart/product.html', context)
 
-	
+
 @login_required(login_url='accounts:login')
 @allowed_users(allowed_roles=['admin'])
 def add_product(request):
@@ -24,7 +28,6 @@ def add_product(request):
     if request.method == 'POST':
         form = AddProductForm(request.POST)
         if form.is_valid():
-            # Check for duplicate entries before saving
             if not Product.objects.filter(title=form.cleaned_data['title']).exists():
                 form.save()
                 return redirect('mart:product')
@@ -94,7 +97,7 @@ def add_purchase(request):
 	return render(request, 'mart/purchase.html', context)
 
 	
-
+@cache_page(60*15)
 @login_required(login_url='accounts:login')	
 def view_purchase(request):
 	purchases = Purchase.objects.all()
@@ -113,7 +116,7 @@ def delete_purchase(request, purchase_id):
 def update_purchase(request):
 	pass
 
-
+@cache_page(60*15)
 @login_required(login_url='accounts:login')
 def view_return(request):
 	return_voucher = Return.objects.all()

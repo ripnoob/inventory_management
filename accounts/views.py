@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, logout, login
 from .decorators import allowed_users
 from .models import CustomUser, Customer
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import cache_page
 # Create your views here.
 
 @allowed_users(allowed_roles=['admin'])
@@ -56,6 +57,7 @@ def logout_view(request):
 
 # Staff Views		
 
+@cache_page(60*15)
 @login_required(login_url='accounts:login')
 def staff_view(request):
 	staff = CustomUser.objects.filter(role='staff')
@@ -93,7 +95,7 @@ def update_staff(request, staff_id):
 
 
 # Admin Views
-
+@cache_page(60*15)
 @login_required(login_url='accounts:login')
 def AdminView(request):
 	admin = CustomUser.objects.filter(role='admin')
@@ -129,7 +131,7 @@ def delete_admin(request, admin_id):
 
 
 # Customer Views
-
+@cache_page(60*15)
 def CustomerView(request):
 	customers = Customer.objects.all().order_by('-created_at')
 	context = {'customers':customers}
